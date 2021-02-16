@@ -1,0 +1,5 @@
+ALTER TABLE table1 ADD Author varchar(15)
+ALTER TABLE table1 MODIFY COLUMN Author varchar(20)
+ALTER TABLE table1 DROP COLUMN Author
+CREATE UNIQUE INDEX index1 ON table1(id)
+DROP INDEX index1 ON table1(id)
