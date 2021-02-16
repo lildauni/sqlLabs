@@ -1,19 +1,17 @@
-DROP DATABASE database1
 CREATE DATABASE lab1
 CREATE TABLE `table1` (
-  `n` int(11) DEFAULT NULL,
-  `id` int(11) NOT NULL,
-  `isNovelty` tinyint(1) DEFAULT NULL,
-  `Name` text DEFAULT NULL,
-  `Price` float DEFAULT NULL,
-  `Publishing_House` text DEFAULT NULL,
-  `Pages` int(11) DEFAULT NULL,
-  `Format` text DEFAULT NULL,
-  `Date` date DEFAULT NULL,
-  `Circulation` int(11) DEFAULT NULL,
-  `Theme` text DEFAULT NULL,
-  `Category` text DEFAULT NULL
-  PRIMARY KEY ('id')
+  `n` INT,
+  `id` INT NOT NULL PRIMARY KEY,
+  `isNovelty` BOLEAN NOT NULL,
+  `Name` TEXT NOT NULL,
+  `Price` FLOAT NOT NULL CHECK (price>0),
+  `Publishing_House` TEXT ,
+  `Pages` INT NOT NULL CHECK (pages>0),
+  `Format` TEXT NOT NULL,
+  `Date` DATE NOT NULL,
+  `Circulation` INT,
+  `Theme` TEXT,
+  `Category` TEXT NOT NULL
 )
 CREATE INDEX n ON table1(n)
 INSERT INTO `table1` (`n`, `id`, `isNovelty`, `Name`, `Price`, `Publishing_House`, `Pages`, `Format`, `Date`, `Circulation`, `Theme`, `Category`) 
