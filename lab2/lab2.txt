@@ -1,0 +1,56 @@
+#Вивести значення наступних колонок: номер, код, новинка, назва, ціна, сторінки
+SELECT n, id, isNovelty, Name, Price, Pages FROM table1
+
+#Вивести значення всіх колонок
+SELECT * FROM table1
+
+#Вивести значення колонок в наступному порядку: код, назва, новинка, сторінки, ціна, номер
+SELECT id, Name, isNovelty, Pages, Price, n FROM table1
+
+#Вивести значення всіх колонок 10 перших рядків
+SELECT * FROM table1 LIMIT 10
+
+#Вивести значення колонки код без повторення однакових кодів
+SELECT DISTINCT n FROM table1
+
+#Вивести всі книги новинки
+SELECT * FROM table1 WHERE isNovelty
+
+#Вивести всі книги новинки з ціною від 20 до 30
+SELECT * FROM table1 WHERE isNovelty AND (Price BETWEEN 20 AND 30)
+
+#Вивести всі книги новинки з ціною менше 20 і більше 30
+SELECT * FROM table1 WHERE isNovelty AND (Price < 20 AND Price > 30)
+
+#Вивести всі книги з кількістю сторінок від 300 до 400 і з ціною більше 20 і менше 30
+SELECT * FROM table1 WHERE (Pages BETWEEN 300 AND 400) AND Price > 20 AND Price < 30
+
+# Вивести всі книги видані взимку 2000 року
+SELECT * FROM table1 WHERE Date > DATE('2000-01-01') AND Date < DATE('2000-03-01')
+
+#Вивести книги зі значеннями кодів 5110, 5141, 4985, 4241
+SELECT * FROM table1 WHERE n in(5110, 5141, 4985, 4241)
+
+# Вивести книги видані в 1999, 2001, 2003, 2005 р
+SELECT * FROM table1 WHERE YEAR(Date) > 1998 AND YEAR(Date) % 2 <> 0
+
+#Вивести книги назви яких починаються на літери А-К
+SELECT * FROM table1 WHERE LEFT(Name, 1) >= 'А' AND LEFT(Name, 1) <= 'К'
+
+#Вивести книги назви яких починаються на літери "АПП", видані в 2000 році з ціною до 20
+SELECT * FROM table1 WHERE LEFT(Name, 3) = 'АПП' AND YEAR(Date) = 2000 AND Price < 20
+
+#Вивести книги назви яких починаються на літери "АПП", закінчуються на "е", видані в першій половині 2000 року
+SELECT * FROM table1 WHERE LEFT(Name, 3) = 'АПП' AND RIGHT(Name, 1) = 'е' AND YEAR(Date) = 2000 AND MONTH(Date) >= 1 AND MONTH(Date) <= 6
+
+#Вивести книги, в назвах яких є слово Microsoft, але немає слова Windows
+SELECT * FROM table1 WHERE Name LIKE '%Microsoft%' AND NOT Name LIKE '%Windows%'
+
+#Вивести книги, в назвах яких присутня як мінімум одна цифра
+SELECT * FROM table1 WHERE Name REGEXP '[0-9]'
+
+#Вивести книги, в назвах яких присутні не менше трьох цифр
+SELECT * FROM table1 WHERE Name REGEXP '([0-9].*){3,}'
+
+#Вивести книги, в назвах яких присутній рівно п'ять цифр
+SELECT * FROM table1 WHERE Name REGEXP '([0-9].*){5}' AND Name NOT REGEXP '([0-9].*){6,}'
