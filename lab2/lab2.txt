@@ -14,25 +14,25 @@ SELECT * FROM table1 LIMIT 10
 SELECT DISTINCT n FROM table1
 
 #Вивести всі книги новинки
-SELECT * FROM table1 WHERE isNovelty
+SELECT * FROM table1 WHERE isNovelty = 1
 
 #Вивести всі книги новинки з ціною від 20 до 30
-SELECT * FROM table1 WHERE isNovelty AND (Price BETWEEN 20 AND 30)
+SELECT * FROM table1 WHERE isNovelty = 1 AND (Price BETWEEN 20 AND 30)
 
 #Вивести всі книги новинки з ціною менше 20 і більше 30
-SELECT * FROM table1 WHERE isNovelty AND (Price < 20 AND Price > 30)
+SELECT * FROM table1 WHERE isNovelty = 1 AND (Price < 20 OR Price > 30)
 
 #Вивести всі книги з кількістю сторінок від 300 до 400 і з ціною більше 20 і менше 30
 SELECT * FROM table1 WHERE (Pages BETWEEN 300 AND 400) AND Price > 20 AND Price < 30
 
 # Вивести всі книги видані взимку 2000 року
-SELECT * FROM table1 WHERE Date > DATE('2000-01-01') AND Date < DATE('2000-03-01')
+SELECT * FROM table1 WHERE Date > DATE('2000-01-01') AND Date < DATE('2000-03-01') AND Date < DATE('2001-01-01') AND Date >= DATE('2000-12-01')
 
 #Вивести книги зі значеннями кодів 5110, 5141, 4985, 4241
 SELECT * FROM table1 WHERE n in(5110, 5141, 4985, 4241)
 
 # Вивести книги видані в 1999, 2001, 2003, 2005 р
-SELECT * FROM table1 WHERE YEAR(Date) > 1998 AND YEAR(Date) % 2 <> 0
+SELECT * FROM table1 WHERE YEAR(Date) > 1998 AND YEAR(Date) % 2 <> 0 AND YEAR(Date) <= 2005
 
 #Вивести книги назви яких починаються на літери А-К
 SELECT * FROM table1 WHERE LEFT(Name, 1) >= 'А' AND LEFT(Name, 1) <= 'К'
