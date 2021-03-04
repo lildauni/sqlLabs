@@ -1,0 +1,53 @@
+#Вивести статистику: загальна кількість всіх книг, їх вартість, їх середню вартість, мінімальну і максимальну ціну
+SELECT COUNT(Name) AS 'Загальна кількість книг', Price AS 'Ціна', AVG(Price) AS 'Середня ціна', MAX(Price) AS 'Маскимальна ціна', MIN(Price) AS 'Мінімальна ціна' FROM `table1`
+
+#Вивести загальну кількість всіх книг без урахування книг з непроставленою ціною
+SELECT COUNT(Name) AS 'Кількість книг' FROM `table1` WHERE Price IS NOT NULL
+
+#Вивести статистику (див. 1) для книг новинка / не новинка
+SELECT COUNT(Name) AS 'Загальна кількість книг', Price AS 'Ціна', AVG(Price) AS 'Середня ціна', MAX(Price) AS 'Маскимальна ціна', MIN(Price) AS 'Мінімальна ціна' FROM `table1` GROUP BY isNovelty
+
+#Вивести статистику (див. 1) для книг за кожним роком видання
+SELECT COUNT(Name) AS 'Загальна кількість книг', Price AS 'Ціна', AVG(Price) AS 'Середня ціна', MAX(Price) AS 'Маскимальна ціна', MIN(Price) AS 'Мінімальна ціна' FROM `table1` GROUP BY YEAR(Date)
+
+#Змінити п.4, виключивши з статистики книги з ціною від 10 до 20
+SELECT COUNT(Name) AS 'Загальна кількість книг', Price AS 'Ціна', AVG(Price) AS 'Середня ціна', MAX(Price) AS 'Маскимальна ціна', MIN(Price) AS 'Мінімальна ціна' FROM `table1` WHERE Price NOT BETWEEN 10 AND 20 GROUP BY YEAR(Date)
+
+#Змінити п.4. Відсортувати статистику по спадаючій кількості.
+SELECT COUNT(Name) AS 'Загальна кількість книг', Price AS 'Ціна', AVG(Price) AS 'Середня ціна', MAX(Price) AS 'Маскимальна ціна', MIN(Price) AS 'Мінімальна ціна' FROM `table1` GROUP BY YEAR(Date) ORDER BY COUNT(Name) DESC
+
+#Вивести загальну кількість кодів книг і кодів книг що не повторюються
+SELECT COUNT(DISTINCT id) AS 'Кількість загальних кодів', COUNT(id) AS 'Кількість кодів' FROM `table1`
+
+#Вивести статистику: загальна кількість і вартість книг по першій букві її назви
+SELECT COUNT(Name) AS 'Загальна кількість книг', Price AS 'Ціна книг' FROM `table1` GROUP BY LEFT(Name,1)
+
+#Змінити п. 8, виключивши з статистики назви що починаються з англ. букви або з цифри.
+SELECT COUNT(Name) AS 'Загальна кількість книг', Price AS 'Ціна книг' FROM `table1` WHERE (LEFT(Name,1) NOT BETWEEN 'A' AND 'Z') AND (LEFT(Name,1) NOT BETWEEN '0' AND '9') GROUP BY LEFT(Name,1)
+
+#Змінити п. 9 так щоб до складу статистики потрапили дані з роками більшими за 2000.
+SELECT COUNT(Name) AS 'Загальна кількість книг', Price AS 'Ціна книг' FROM `table1` WHERE (LEFT(Name,1) NOT BETWEEN 'A' AND 'Z') AND (LEFT(Name,1) NOT BETWEEN '0' AND '9') AND (YEAR(Date)>2000) GROUP BY LEFT(Name,1)
+
+#Змінити п. 10. Відсортувати статистику по спадаючій перших букв назви.
+SELECT COUNT(Name) AS 'Загальна кількість книг', Price AS 'Ціна книг' FROM `table1` WHERE (LEFT(Name,1) NOT BETWEEN 'A' AND 'Z') AND (LEFT(Name,1) NOT BETWEEN '0' AND '9') AND (YEAR(Date)>2000) GROUP BY LEFT(Name,1) ORDER BY LEFT(Name,1) DESC
+
+#Вивести статистику (див. 1) по кожному місяцю кожного року.
+SELECT COUNT(Name) AS 'Загальна кількість імен', Price AS 'Ціна', AVG(Price) AS 'Середня ціна', MIN(Price) AS 'Мінімальна ціна', MAX(Price) AS 'Максимальна ціна' FROM table1 GROUP BY MONTH(Date), YEAR(Date)
+
+#Змінити п. 12. Фільтр по спадаючій року і зростанню місяця.
+SELECT COUNT(Name) AS 'Загальна кількість імен', Price AS 'Ціна', AVG(Price) AS 'Середня ціна', MIN(Price) AS 'Мінімальна ціна', MAX(Price) AS 'Максимальна ціна' FROM table1 GROUP BY MONTH(Date), YEAR(Date) ORDER BY MONTH(Date) ASC, YEAR(Date) DESC
+
+#Вивести статистику для книг новинка / не новинка: загальна ціна, загальна ціна в грн. / Євро / руб. Колонкам запиту дати назви за змістом.
+SELECT SUM(Price) AS 'Загальна ціна', SUM(Price*27.90) AS 'Загальна ціна в гривнях', SUM(Price*0.82) AS 'Загальна ціна в євро', SUM(Price*74.16) AS 'Загальна ціна в рублях' FROM table1 GROUP BY isNovelty
+
+#Вивести статистику (див. 1) по видавництвах.
+SELECT COUNT(Name) AS 'Загальна кількість книг', Price AS 'Ціна', AVG(Price) AS 'Середня ціна', MAX(Price) AS 'Маскимальна ціна', MIN(Price) AS 'Мінімальна ціна' FROM `table1` GROUP BY Publisher
+
+#Вивести статистику (див. 1) за темами і видавництвами. Фільтр по видавництвам.
+SELECT COUNT(Name) AS 'Загальна кількість книг', Price AS 'Ціна', AVG(Price) AS 'Середня ціна', MAX(Price) AS 'Маскимальна ціна', MIN(Price) AS 'Мінімальна ціна' FROM `table1` GROUP BY Theme, Publisher ORDER BY Publisher 
+
+#Вивести статистику (див. 1) за категоріями, темами і видавництвами. Фільтр по видавництвам, темах, категоріям.
+SELECT COUNT(Name) AS 'Загальна кількість книг', Price AS 'Ціна', AVG(Price) AS 'Середня ціна', MAX(Price) AS 'Маскимальна ціна', MIN(Price) AS 'Мінімальна ціна' FROM `table1` GROUP BY Theme, Publisher, Category ORDER BY Publisher, Theme, Category
+
+#Вивести список видавництв, у яких округлена до цілого ціна однієї сторінки більше 10 копійок.
+SELECT Publisher FROM table1 WHERE ROUND(Price/Page, 0)>10
